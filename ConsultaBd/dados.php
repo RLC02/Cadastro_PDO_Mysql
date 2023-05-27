@@ -26,6 +26,9 @@ $_SESSION['bairro'] = $bairro;
 $_SESSION['cep'] = $cep;
 $_SESSION['cidade'] = $cidade;
 $_SESSION['estado'] = $estado;
+
+
+
     
 $sql = "INSERT INTO clientes (nome, endereco, bairro, cep, cidade, estado)
 VALUES (:nome, :endereco, :bairro, :cep, :cidade, :estado)";
@@ -34,6 +37,6 @@ $stmt = $PDO->prepare($sql);
 
 $stmt->execute(['nome' => $nome, 'endereco' => $endereco,'bairro' => $bairro,'cep' => $cep,'cidade' => $cidade,'estado' => $estado]);
 
-header("Location: cadastro.php");
+header("Location: index.php");
 exit();
 ?>

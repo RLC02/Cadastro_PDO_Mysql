@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 define('MYQL_HOST', 'localhost:3306' );
 define('MYSQL_USER', 'root' );
 define('MYSQL_PASSWORD', '');
@@ -52,46 +52,52 @@ try
             <table class="table table-bordered border-dark">
                 <thead>
                     <tr>
+                        <th scope="col">id</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Endereço</th>
                         <th scope="col">Bairro</th>
                         <th scope="col">Cep</th>
                         <th scope="col">Cidade</th>
                         <th scope="col">Estado</th>
+                        <th scope="col"></th>
+                        
                     </tr>
                 </thead>
-                <tbody>
-                <?php 
-        $sql = "SELECT * FROM clientes";
-        $result = $PDO->query( $sql );
-        $rows = $result->fetchAll();
-        for($i=0; $i < count($rows); $i++){ ?>
-                <td scope="col"> 
-                <?php echo $rows [$i]['nome']; ?><br>             
-                </td>
-                <td scope="col">  
-                <?php echo $rows [$i]['endereco']; ?><br>
-                </td>
-                <td scope="col">  
-                <?php echo $rows [$i]['bairro']; ?><br>
-                </td>
-                <td scope="col">
-                <?php echo $rows [$i]['cep']; ?><br>
-                </td>    
-                <td scope="col">                 
-                <?php echo $rows [$i]['cidade']; ?><br>
-                </td>
-                <td scope="col">                 
-                <?php echo $rows [$i]['estado']; ?><br>
-                </td>     
+              <tbody>
+              <?php
+                        $sql = "SELECT * FROM clientes";
+                        $result = $PDO->query($sql);
+                        $rows = $result->fetchAll();
+
+                        for($i=0; $i < count($rows); $i++){
+                                      
+                        $id = $rows[$i]['id'];
+                        $nome = $rows[$i]['nome'];
+                        $endereco = $rows[$i]['endereco'];
+                        $bairro = $rows[$i]['bairro']; 
+                        $cidade = $rows[$i]['cidade']; 
+                        $estado = $rows[$i]['estado']; 
+                        $cep = $rows[$i]['cep'];   
+                                                  
+                        echo '<tr>
+                        <td>'.$id.'</td>
+                        <td>'.$nome.'</td>
+                        <td>'.$endereco.'</td>
+                        <td>'.$bairro.'</td>
+                        <td>'.$cidade.'</td>
+                        <td>'.$estado.'</td>
+                        <td>'.$cep.'</td>
+                        <td>
+                          <button class="btn btn-primary" id="botãosub"><a class="text-light" href="editar_dados.php?id='.$id.'&nome='.$nome.'&endereco='.$endereco.'&bairro='.$bairro.'&cidade='.$cidade.'&estado='.$estado.'&cep='.$cep.'">Editar</a></button>
+                          <button class="btn  btn-primary" id="botãosub"><a class="text-light" href="delete.php?id='.$id.'">Excluir</a></button>
+                        </td>
+                        </tr>';
+                        }?>
                 </tbody>
-<?php
-}
-?>   
             </table>
         </div>
     </div>
-</div>  
+</div> 
 </div>    
 </body>
 </html>

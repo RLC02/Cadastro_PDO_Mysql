@@ -1,4 +1,37 @@
+<?php
+session_start();
+define('MYQL_HOST', 'localhost:3306' );
+define('MYSQL_USER', 'root' );
+define('MYSQL_PASSWORD', '');
+define('MYSQL_DB_NAME', 'bd_sistema');
 
+try
+{
+    $PDO = new PDO('mysql:host=' . MYQL_HOST . ';dbname=' . MYSQL_DB_NAME, MYSQL_USER, MYSQL_PASSWORD);        
+}catch( PDOException $e )
+{
+    echo 'Erro ao conectar com o MySQL: ' . $e->getMessage();
+}
+
+if(isset($_POST['edit'])){
+
+  $id = $_GET['id'];
+
+  $nome = $_POST['nome'];
+  $endereco = $_POST['endere'];
+  $bairro = $_POST['bairro'];
+  $cidade = $_POST['cidade'];
+  $estado = $_POST['estado'];
+  $cep = $_POST['cep'];
+
+ 
+  $sql = "UPDATE clientes SET nome='$nome', endereco='$endereco', bairro='$bairro', cidade='$cidade', estado='$estado', cep='$cep' WHERE id = $id";
+
+  $result = $PDO->query($sql);
+
+  header("Location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,41 +63,42 @@
 </nav>
 <div class="container" id="container2">
 <div class="formulario">
-    <form  method="POST" action="dados.php">
-                <h2>Cadastrar - Dados</h2>
+    <form  method="POST"> 
+                <h2>Editar - Dados</h2>
                 <div class="mb-4">
                     <label for="nome" class="form-label">Nome:</label>
-                    <input type="text" class="form-control" name="nome" id="nome"></input>
+                    <input type="text" class="form-control" name="nome" value="<?php echo $_GET['nome']; ?>" id="nome"  required></input>
                 </div>
                 <div class="mb-4">
                     <label for="endere" class="form-label">Endereço:</label>
-                    <input type="text" class="form-control" name="endere" id="endere" required></input>
+                    <input type="text" class="form-control" name="endere" value="<?php echo $_GET['endereco']; ?>" id="endere" required></input>
                 </div>
                 <div class="mb-4">
                     <label for="bairro" class="form-label">Bairro:</label>
-                    <input type="text" class="form-control" id="bairro" name="bairro" required></input>
+                    <input type="text" class="form-control" id="bairro"  value="<?php echo $_GET['bairro']; ?>" name="bairro" required></input>
                 </div>
                 <div class="mb-4">
                     <label for="cep" class="form-label">Cep</label>
-                    <input type="number" class="form-control" id="cep" name="cep" required></input>
+                    <input type="number" class="form-control" id="cep" value="<?php echo $_GET['cep']; ?>" name="cep" required></input>
                 </div>
                 <div class="mb-4">
                     <label for="cidade" class="form-label">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" required></input>
+                    <input type="text" class="form-control" id="cidade" value="<?php echo $_GET['cidade']; ?>" name="cidade" required></input>
                 </div>
                 <div class="mb-4">
                 <label for="select" class="form-label">Estado</label>
                 <select class="form-select" aria-label="select" name="estado" id="estado">
+                <option selected="selected"><?php echo $_GET['estado']; ?></option>
                     <option value="Sp">SP</option>
                     <option value="Rj">RJ</option>
                 </select>
                 </div>
                 <div class="mb-4">
-                <input type="submit" id="botãosub" name="submit" class="btn btn-primary mb-3"></input>
-                </div>
+                <input type="submit" value="Editar" name="edit" id="botãosub" class="btn btn-primary mb-3">
+                </div> 
     </form>        
 </div>            
-
 </div>    
+
 </body>
 </html>
