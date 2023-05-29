@@ -55,7 +55,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="cidade" class="form-label">Cidade</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" required></input>
+                    <input type="text"  class="form-control" id="cidade" name="cidade" required></input>
                 </div>
                 <div class="mb-4">
                     <label for="select" class="form-label">Estado</label>
