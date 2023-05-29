@@ -1,25 +1,22 @@
 <?php
 session_start();
-define('MYQL_HOST', 'localhost:3306' );
-define('MYSQL_USER', 'root' );
+define('MYQL_HOST', 'localhost:3306');
+define('MYSQL_USER', 'root');
 define('MYSQL_PASSWORD', '');
 define('MYSQL_DB_NAME', 'bd_sistema');
 
-try
-{
-    $PDO = new PDO('mysql:host=' . MYQL_HOST . ';dbname=' . MYSQL_DB_NAME, MYSQL_USER, MYSQL_PASSWORD);        
-}catch( PDOException $e )
-{
+try {
+    $PDO = new PDO('mysql:host=' . MYQL_HOST . ';dbname=' . MYSQL_DB_NAME, MYSQL_USER, MYSQL_PASSWORD);
+} catch (PDOException $e) {
     echo 'Erro ao conectar com o MySQL: ' . $e->getMessage();
 }
-    if(isset($_GET['id'])){ 
+if (isset($_GET['id'])) {
 
-        $id = $_GET['id'];
+    $id = $_GET['id'];
 
-        $sql = "DELETE FROM clientes WHERE id = $id"; 
-   
-        $result = $PDO->query($sql);
+    $sql = "DELETE FROM clientes WHERE id = $id";
 
-        header("Location: index.php");
-    } 
-?>
+    $result = $PDO->query($sql);
+
+    header("Location: index.php");
+}
